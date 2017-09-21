@@ -27,9 +27,9 @@ body,html{margin: 0;padding: 0;width: 100%;height: 100%;}
 
 
 <script>
-import myHeader from './components/Header.vue';
-import leftMenu from './components/LeftMenu.vue'
-import myHome from './components/Home.vue'
+import myHeader from './components/common/Header.vue';
+import leftMenu from './components/common/LeftMenu.vue'
+import myHome from './components/common/Home.vue'
 export default {
   data () {
     return {
