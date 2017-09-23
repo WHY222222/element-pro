@@ -1,58 +1,91 @@
-<template lang="html">
-  <div class="login-wrap">
-    <div class="login-title">后台管理系统</div>
-    <div class="login-form">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="用户名" prop="username">
-          <el-input type="username" placeholder="username" v-model="ruleForm.username"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="ruleForm.password"></el-input>
-        </el-form-item>
+<template>
+    <div class="login-wrap">
+        <div class="login-title">后台管理系统</div>
+        <div class="login-content">
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
+                <el-form-item prop="username">
+                    <el-input v-model="ruleForm.username" placeholder="username"></el-input>
+                </el-form-item>
+                <el-form-item prop="password">
+                    <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+                </el-form-item>
+                <div class="login-btn">
+                  <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                  <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
+                </div>
 
-        <el-form-item class="login-btn">
-          <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-          <el-button >注册</el-button>
-        </el-form-item>
-      </el-form>
+            </el-form>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-export default {
-  data: function(){
-    return{
-      ruleForm:{
-        username: '',
-        password: ''
-      },
-      rules:{
-        username: [
-          {required: true, message: '请输入用户名',trigger: 'blur'}
-        ],
-        password: [
-          {required:true, message: '请输入密码',trigger: 'blur'}
-        ]
-      }
-    }
-  },
-  methods: {
-    submitForm(formName){
-      const self = this;
-      self.$refs[formName].validate((valid) => {
-        if(valid){
-          localStorage.setItem('ms_username',self.ruleForm.username);
-          self.$router.push('/readme');
-        } else{
-          console.log('error submit!!');
-          return false;
+    export default {
+        data: function(){
+            return {
+                ruleForm: {
+                    username: '',
+                    password: ''
+                },
+                rules: {
+                    username: [
+                        { required: true, message: '请输入用户名', trigger: 'blur' }
+                    ],
+                    password: [
+                        { required: true, message: '请输入密码', trigger: 'blur' }
+                    ]
+                }
+            }
+        },
+        methods: {
+            submitForm(formName) {
+                const self = this;
+                self.$refs[formName].validate((valid) => {
+                  if(valid){
+                    localStorage.setItem('ms_username',self.ruleForm.username);
+                    self.$router.push('/readme');
+                  } else{
+                    console.log('erro submit!!');
+                    return false;
+                  }
+                })
+            }
         }
-      })
     }
-  }
-}
 </script>
 
-<style lang="css" scoped>
+<style scoped>
+    .login-wrap{
+        position: relative;
+        width:100%;
+        height:100%;
+    }
+    .ms-title{
+        position: absolute;
+        top:50%;
+        width:100%;
+        margin-top: -230px;
+        text-align: center;
+        font-size:30px;
+        color: #fff;
+
+    }
+    .ms-login{
+        position: absolute;
+        left:50%;
+        top:50%;
+        width:300px;
+        height:160px;
+        margin:-150px 0 0 -190px;
+        padding:40px;
+        border-radius: 5px;
+        background: #fff;
+    }
+    .login-btn{
+        text-align: center;
+    }
+    .login-btn button{
+        width:100%;
+        height:36px;
+    }
 </style>
